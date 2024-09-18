@@ -39,11 +39,14 @@ public class UserService {
     public boolean existsByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
-
+    public boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
     // Vérifier les identifiants
     public boolean loginUser(String username, String plainPassword) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
+
             boolean passwordMatches = passwordEncoder.matches(plainPassword, user.get().getPassword());
             if (passwordMatches) {
                 logger.info("User login successful: " + username);
